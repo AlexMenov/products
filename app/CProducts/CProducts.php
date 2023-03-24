@@ -28,20 +28,9 @@ class CProducts
         mysqli_close($conn);
     }
 
-    public function slice_products()
+    public function slice_products($products_array, $start, $limit)
     {
-
-    }
-
-    public function sort_products()
-    {
-        uasort($this->products, function ($item_one, $item_two) {
-            $data = 'DATE_CREATE';
-            $timestamp1 = strtotime($item_one[$data]);
-            $timestamp2 = strtotime($item_two[$data]);
-            return $timestamp1 < $timestamp2 ? 1 : ($timestamp1 > $timestamp2 ? -1 : 0);
-        });
-        return $this->products;
+        return array_slice($products_array, $start, $limit, true);
     }
 
     public function hide_product($id)
@@ -51,6 +40,17 @@ class CProducts
         mysqli_query($conn, $sql);
         mysqli_close($conn);
         header("Location: get_products.php");
+    }
+
+    private function sort_products()
+    {
+        uasort($this->products, function ($item_one, $item_two) {
+            $data = 'DATE_CREATE';
+            $timestamp1 = strtotime($item_one[$data]);
+            $timestamp2 = strtotime($item_two[$data]);
+            return $timestamp1 < $timestamp2 ? 1 : ($timestamp1 > $timestamp2 ? -1 : 0);
+        });
+        return $this->products;
     }
 
     private function filter_by_hidden()

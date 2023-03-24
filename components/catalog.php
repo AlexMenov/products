@@ -9,6 +9,13 @@
         </div>
     </div>
 
-    <?php require "../app/get_products.php"?>
+    <form id="productForm">
+        <label for="from">Показать товары с:
+        <input type="number" id="from" name="from"></label>
+        <label for="to">Показать товары по:
+        <input type="number" id="to" name="to"></label>
+        <button type="submit">Применить фильтры</button>
+    </form>
 
+    <?php require "../app/get_products.php"?>
 </div>

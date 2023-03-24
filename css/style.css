@@ -108,10 +108,11 @@ input[type="submit"]:hover {
 }
 
 .product-card {
-    background-color: antiquewhite;
+    background-color: pink;
     border-radius: 10px;
     padding: 10px;
     margin-right: 5px;
+    transition: opacity .2s, transform .2s;
 }
 
 .product-name {
@@ -146,4 +147,13 @@ input[type="submit"]:hover {
 
 .product-link:hover {
     background: cadetblue;
+}
+
+.product-quantity-plus, .product-quantity-minus {
+    cursor: pointer;
+    text-align: center;
+    font-size: 25px;
+}
+.product-quantity-minus:hover, .product-quantity-plus:hover {
+    background-color: #cccccc;
 }

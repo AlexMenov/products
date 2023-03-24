@@ -38,7 +38,7 @@ class Database
         if ($this->table) {
             $conn = mysqli_connect($this->host, $this->user, $this->password, $this->database);
             mysqli_set_charset($conn, "utf8");
-            $sql = "CREATE TABLE `$this->database`.`$this->table` (`ID` INT(11) NOT NULL AUTO_INCREMENT , `PRODUCT_ID` INT(11) NOT NULL , `PRODUCT_NAME` VARCHAR(100) NOT NULL , `PRODUCT_PRICE` FLOAT(10, 2) NOT NULL , `PRODUCT_ARTICLE` VARCHAR(300) NOT NULL , `PRODUCT_QUANTITY` INT(11) NOT NULL , `DATE_CREATE` DATE NOT NULL , PRIMARY KEY (`ID`)) ENGINE = InnoDB;";
+            $sql = "CREATE TABLE `$this->database`.`$this->table` (`ID` INT(11) NOT NULL AUTO_INCREMENT , `PRODUCT_ID` INT(11) NOT NULL , `HIDDEN` INT(1) NOT NULL , `PRODUCT_NAME` VARCHAR(100) NOT NULL , `PRODUCT_PRICE` FLOAT(10, 2) NOT NULL , `PRODUCT_ARTICLE` VARCHAR(300) NOT NULL , `PRODUCT_QUANTITY` INT(11) NOT NULL , `DATE_CREATE` DATE NOT NULL , PRIMARY KEY (`ID`)) ENGINE = InnoDB;";
             echo !mysqli_query($conn, $sql) ? "Ошибка при создании таблицы: " . mysqli_error($conn) : "Создание таблицы '$this->table' выполнено успешно";
             mysqli_close($conn);
         };
