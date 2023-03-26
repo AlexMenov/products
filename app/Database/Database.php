@@ -8,12 +8,10 @@ class Database
     private $user = "root";
     private $password = "";
     private $database;
-    private $table;
 
-    public function __construct($database_name, $table_name)
+    public function __construct($database_name)
     {
         $this->database = $database_name;
-        $this->table = $table_name;
     }
 
     private function create_db()
@@ -33,12 +31,15 @@ class Database
         header("/");
     }
 
-    private function create_table()
+    private function create_table($new_table)
     {
-        if ($this->table) {
+        if ($new_table) {
             $conn = mysqli_connect($this->host, $this->user, $this->password, $this->database);
             mysqli_set_charset($conn, "utf8");
-            $sql = "CREATE TABLE `$this->database`.`$this->table` (`ID` INT(11) NOT NULL AUTO_INCREMENT , `PRODUCT_ID` INT(11) NOT NULL , `HIDDEN` INT(1) NOT NULL , `PRODUCT_NAME` VARCHAR(100) NOT NULL , `PRODUCT_PRICE` FLOAT(10, 2) NOT NULL , `PRODUCT_ARTICLE` VARCHAR(300) NOT NULL , `PRODUCT_QUANTITY` INT(11) NOT NULL , `DATE_CREATE` DATE NOT NULL , PRIMARY KEY (`ID`)) ENGINE = InnoDB;";
+            $sql = "CREATE TABLE `$this->database`.`$new_table` (`ID` INT(11) NOT NULL AUTO_INCREMENT , `COLLECTION_ID` INT(11) NOT NULL , `PRODUCT_NAME` VARCHAR(100) NOT NULL , `PRODUCT_PRICE` FLOAT(10, 2) NOT NULL , PRIMARY KEY (`ID`)) ENGINE = InnoDB;";
+            if ($new_table === "stools_collections") {
+                $sql = "CREATE TABLE `$this->database`.`$new_table` (`ID` INT(11) NOT NULL AUTO_INCREMENT , `COLLECTION_ID` INT(11) NOT NULL , `COLLECTION_NAME` VARCHAR(100) NOT NULL , PRIMARY KEY (`ID`)) ENGINE = InnoDB;";
+            }
             echo !mysqli_query($conn, $sql) ? "Ошибка при создании таблицы: " . mysqli_error($conn) : "Создание таблицы '$this->table' выполнено успешно";
             mysqli_close($conn);
         };
@@ -50,9 +51,9 @@ class Database
         $this->create_db();
     }
 
-    public function add_table()
+    public function add_table($new_table)
     {
-        $this->create_table();
+        $this->create_table($new_table);
     }
 }
 
